@@ -7,29 +7,28 @@
 10.0.40.195
 10.0.40.252
 
-$mongo
-
-cfg = { _id: "rs0","protocolVersion" : NumberLong(1), members: [{_id: 0,host: "10.0.40.123:27017"},{_id: 1,host: "10.0.40.195:27017"},{_id: 2,host: "10.0.40.252:27017"}]}
-
-rs.reconf(cfg);
+# How do we group a replica set
 
 first memeber: (10.0.40.123)
-$sudo mkdir -p /srv/mongodb/rs0-0  /srv/mongodb/rs0-1 /srv/mongodb/rs0-2
-$cd /srv/mongodb
-$sudo chmod 777 *
-$mongod --replSet rs0 --port 27017 --bind_ip localhost,10.0.40.123 --dbpath /srv/mongodb/rs0-0  --oplogSize 128
+$sudo vim /etc/mongo.conf
+$sudo service mongod start
+$mongo
+
+in mongo shell:
+cfg = { _id: "rs0","protocolVersion" : NumberLong(1), members: [{_id: 0,host: "10.0.40.123:27017"},{_id: 1,host: "10.0.40.195:27017"},{_id: 2,host: "10.0.40.252:27017"}]}
+
+rs.conf(cfg);
+rs.initiate(cfg)
 
 second member: (10.0.40.195)
-$sudo mkdir -p /srv/mongodb/rs0-0  /srv/mongodb/rs0-1 /srv/mongodb/rs0-2
-$cd /srv/mongodb
-$sudo chmod 777 *
-$mongod --replSet rs0 --port 27017 --bind_ip localhost,10.0.40.195 --dbpath /srv/mongodb/rs0-1  --oplogSize 128
+$sudo vim /etc/mongo.conf
+$sudo service mongod start
+$mongo
 
 third member: (10.0.40.252)
-$sudo mkdir -p /srv/mongodb/rs0-0  /srv/mongodb/rs0-1 /srv/mongodb/rs0-2
-$cd /srv/mongodb
-$sudo chmod 777 *
-$mongod --replSet rs0 --port 27017 --bind_ip localhost,10.0.40.252 --dbpath /srv/mongodb/rs0-2 --oplogSize 128
+$sudo vim /etc/mongo.conf
+$sudo service mongod start
+$mongo
 
 # Trouble shooting
 
@@ -59,10 +58,20 @@ config      0.000GB
 local       0.088GB
 
 ##########################
+Failed to unlink socket file /tmp/mongodb-27017.sock Unknown error
 
+solution:
+$rm /tmp/mongodb-27017.sock
+###########################
+InvalidReplicaSetConfig: Our replica set config is invalid or we are not a member of it
+Sometimes, kubernetes cluster restart. And comes t
 
+solution:
+rs.reconfig(cfg,{force:true})
 
 Reference:
 # https://docs.mongodb.com/manual/tutorial/deploy-replica-set-for-testing/
 # https://docs.mongodb.com/manual/release-notes/4.0-upgrade-replica-set/
 # https://docs.bitnami.com/vmware-templates/infrastructure/mongodb/get-started/understand-cluster-config/
+# https://rammusxu.github.io/2019/05/24/InvalidReplicaSetConfig-Our-replica-set-config-is-invalid-or-we-are-not-a-member-of-it/
+
