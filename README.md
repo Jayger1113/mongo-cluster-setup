@@ -30,6 +30,15 @@ $sudo vim /etc/mongo.conf
 $sudo service mongod start
 $mongo
 
+# spring boot config
+
+As mongo official doc said:
+https://docs.mongodb.com/manual/reference/connection-string/
+mongodb://mongodb0.example.com:27017,mongodb1.example.com:27017,mongodb2.example.com:27017/admin?replicaSet=myRepl
+
+and we have our spring boot config file "application.yml" as below:
+spring.data.mongodb.uri=mongodb://10.0.40.123:27017,10.0.40.195:27017,10.0.40.252:27017/dbName?replicaSet=rs0
+
 # Trouble shooting
 
 #########################
