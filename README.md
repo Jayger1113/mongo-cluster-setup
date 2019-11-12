@@ -3,41 +3,41 @@
 # Version: 4.0.4
 
 # Suppose we have aws instance as following:
-10.0.40.123
-10.0.40.195
-10.0.40.252
+### 10.0.40.123
+### 10.0.40.195
+### 10.0.40.252
 
 # How do we group a replica set
 
-first memeber: (10.0.40.123)
-$sudo vim /etc/mongo.conf
-$sudo service mongod start
-$mongo
+### first memeber: (10.0.40.123)
+### $sudo vim /etc/mongo.conf
+### $sudo service mongod start
+### $mongo
 
-in mongo shell:
-cfg = { _id: "rs0","protocolVersion" : NumberLong(1), members: [{_id: 0,host: "10.0.40.123:27017"},{_id: 1,host: "10.0.40.195:27017"},{_id: 2,host: "10.0.40.252:27017"}]}
+### in mongo shell:
+### cfg = { _id: "rs0","protocolVersion" : NumberLong(1), members: [{_id: 0,host: "10.0.40.123:27017"},{_id: 1,host: "10.0.40.195:27017"},{_id: 2,host: "10.0.40.252:27017"}]}
 
-rs.conf(cfg);
-rs.initiate(cfg)
+### rs.conf(cfg);
+### rs.initiate(cfg)
 
-second member: (10.0.40.195)
-$sudo vim /etc/mongo.conf
-$sudo service mongod start
-$mongo
+### second member: (10.0.40.195)
+### $sudo vim /etc/mongo.conf
+### $sudo service mongod start
+### $mongo
 
-third member: (10.0.40.252)
-$sudo vim /etc/mongo.conf
-$sudo service mongod start
-$mongo
+### third member: (10.0.40.252)
+### $sudo vim /etc/mongo.conf
+### $sudo service mongod start
+### $mongo
 
 # spring boot config
 
-As mongo official doc said:
-https://docs.mongodb.com/manual/reference/connection-string/
-mongodb://mongodb0.example.com:27017,mongodb1.example.com:27017,mongodb2.example.com:27017/admin?replicaSet=myRepl
+### As mongo official doc said:
+### https://docs.mongodb.com/manual/reference/connection-string/
+### mongodb://mongodb0.example.com:27017,mongodb1.example.com:27017,mongodb2.example.com:27017/admin?replicaSet=myRepl
 
-and we have our spring boot config file "application.yml" as below:
-spring.data.mongodb.uri=mongodb://10.0.40.123:27017,10.0.40.195:27017,10.0.40.252:27017/dbName?replicaSet=rs0
+### and we have our spring boot config file "application.yml" as below:
+### spring.data.mongodb.uri=mongodb://10.0.40.123:27017,10.0.40.195:27017,10.0.40.252:27017/dbName?replicaSet=rs0
 
 # Trouble shooting
 
