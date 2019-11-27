@@ -10,7 +10,7 @@
 # How do we group a replica set
 
 ### first memeber: (10.0.40.123)
-### $sudo vim /etc/mongo.conf
+### $sudo vim /etc/mongod.conf
 ### $sudo service mongod start
 ### $mongo
 
@@ -22,15 +22,15 @@
 ### cfg.members[2].priority = 0.5
 
 ### rs.conf(cfg);
-### rs.initiate(cfg)
+### rs.initiate(cfg);
 
 ### second member: (10.0.40.195)
-### $sudo vim /etc/mongo.conf
+### $sudo vim /etc/mongod.conf
 ### $sudo service mongod start
 ### $mongo
 
 ### third member: (10.0.40.252)
-### $sudo vim /etc/mongo.conf
+### $sudo vim /etc/mongod.conf
 ### $sudo service mongod start
 ### $mongo
 
