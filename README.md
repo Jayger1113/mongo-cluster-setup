@@ -17,6 +17,10 @@
 ### in mongo shell:
 ### cfg = { _id: "rs0","protocolVersion" : NumberLong(1), members: [{_id: 0,host: "10.0.40.123:27017"},{_id: 1,host: "10.0.40.195:27017"},{_id: 2,host: "10.0.40.252:27017"}]}
 
+### cfg.members[0].priority = 1
+### cfg.members[1].priority = 0.5
+### cfg.members[2].priority = 0.5
+
 ### rs.conf(cfg);
 ### rs.initiate(cfg)
 
