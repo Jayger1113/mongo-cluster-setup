@@ -61,35 +61,35 @@
 ### and we have our spring boot config file "application.yml" as below:
 ### spring.data.mongodb.uri=mongodb://10.0.40.123:27017,10.0.40.195:27017,10.0.40.252:27017/dbName?replicaSet=rs0
 
-# Trouble shooting
+# If you face following trouble:
 
-#########################
-rs0:SECONDARY> show dbs
-2019-09-27T07:20:46.394+0000 E QUERY    [js] Error: listDatabases failed:{
-        "operationTime" : Timestamp(1569568839, 1),
-        "ok" : 0,
-        "errmsg" : "not master and slaveOk=false",
-        "code" : 13435,
-        "codeName" : "NotMasterNoSlaveOk",
-        "$clusterTime" : {
-                "clusterTime" : Timestamp(1569568839, 1),
-                "signature" : {
-                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
-                        "keyId" : NumberLong(0)
-                }
-        }
-} :
+1. 
+### rs0:SECONDARY> show dbs
+> 2019-09-27T07:20:46.394+0000 E QUERY    [js] Error: listDatabases failed:{
+>        "operationTime" : Timestamp(1569568839, 1),
+>        "ok" : 0,
+>        "errmsg" : "not master and slaveOk=false",
+>        "code" : 13435,
+>        "codeName" : "NotMasterNoSlaveOk",
+>        "$clusterTime" : {
+>                "clusterTime" : Timestamp(1569568839, 1),
+>                "signature" : {
+>                        "hash" : BinData(0,"AAAAAAAAAAAAAAAAAAAAAAAAAAA="),
+>                        "keyId" : NumberLong(0)
+>                }
+>        }
+> } :
 
-solution:
+### solution:
 
-rs0:SECONDARY> rs.slaveOk()
-rs0:SECONDARY> show dbs
-admin       0.000GB
-config      0.000GB
-local       0.088GB
+> rs0:SECONDARY> rs.slaveOk()
+> rs0:SECONDARY> show dbs
+> admin       0.000GB
+> config      0.000GB
+> local       0.088GB
 
-##########################
-Failed to unlink socket file /tmp/mongodb-27017.sock Unknown error
+2. 
+### Failed to unlink socket file /tmp/mongodb-27017.sock Unknown error
 
 solution:
 $rm /tmp/mongodb-27017.sock
