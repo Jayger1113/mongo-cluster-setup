@@ -100,9 +100,15 @@ Sometimes, kubernetes cluster restart. And comes t
 solution:
 rs.reconfig(cfg,{force:true})
 
+3. ### stuck in RECOVERING state (Mongodb replica set status showing “RECOVERING”
+)
+1. Login to RECOVERING instance
+2. Delete data from existing db which will be /data/db
+3. Restart this RECOVERING instance
+
 Reference:
 # https://docs.mongodb.com/manual/tutorial/deploy-replica-set-for-testing/
 # https://docs.mongodb.com/manual/release-notes/4.0-upgrade-replica-set/
 # https://docs.bitnami.com/vmware-templates/infrastructure/mongodb/get-started/understand-cluster-config/
 # https://rammusxu.github.io/2019/05/24/InvalidReplicaSetConfig-Our-replica-set-config-is-invalid-or-we-are-not-a-member-of-it/
-
+# https://stackoverflow.com/questions/14332010/mongodb-replica-set-status-showing-recovering
